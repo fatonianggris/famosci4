@@ -66,12 +66,12 @@ class Homepage extends Migration
                 'default'=> 0,
             ],
         ]);
-        $this->forge->addKey('id_contact', true);
-        $this->forge->createTable('contact');
+        $this->forge->addKey('id_homepage', true);
+        $this->forge->createTable('homepage');
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable('homepage');
     }
 }
