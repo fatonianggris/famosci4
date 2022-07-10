@@ -46,17 +46,17 @@ $routes->group("api/talent", ['filter' => 'auth'], function ($routes) {
     $routes->post("register", "UserTalent::register");
 });
 $routes->group("api/project", ['filter' => 'auth'], function ($routes) {
-    $routes->get("all", "UserTalent::index");
-    $routes->get("detail/(:any)", "UserTalent::show");
+    $routes->get("all", "Project::index");
+    $routes->get("detail/(:any)", "Project::show");
     $routes->post("create", "Project::create");
-    $routes->put("update/(:any)", "UserTalent::update");
-    $routes->delete("delete/(:any)", "UserTalent::delete");
+    $routes->put("update/(:any)", "Project::update");
+    $routes->delete("delete/(:any)", "Project::delete");
 });
 $routes->group("api/contact", ['filter' => 'auth'], function ($routes) {
     $routes->get("all", "Contact::index");
     $routes->get("detail/(:any)", "Contact::show");
     $routes->get("show_client/(:any)", "Contact::show_client");
-    $routes->post("create", "Project::Contact");
+    $routes->post("create", "Contact::Contact");
     $routes->put("update/(:any)", "Contact::update");
     $routes->delete("delete/(:any)", "Contact::delete");
 });
