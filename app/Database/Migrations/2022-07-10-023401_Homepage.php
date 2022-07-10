@@ -60,11 +60,6 @@ class Homepage extends Migration
                 'type' => 'timestamp',
                 'null'=> true,
             ],
-            'contact_status' => [
-                'type' => 'TINYINT',
-                'constraint' => 5,
-                'default'=> 0,
-            ],
         ]);
         $this->forge->addKey('id_homepage', true);
         $this->forge->createTable('homepage');
