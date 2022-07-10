@@ -35,8 +35,35 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-
+$routes->group("api/client", ['filter' => 'auth'], function ($routes) {
+    $routes->get("profile", "UserClient::show");
+    $routes->post("login", "UserClient::login");
+    $routes->post("register", "UserClient::register");
+});
+$routes->group("api/talent", ['filter' => 'auth'], function ($routes) {
+    $routes->get("profile", "UserTalent::show");
+    $routes->post("login", "UserTalent::login");
+    $routes->post("register", "UserTalent::register");
+});
+$routes->group("api/project", ['filter' => 'auth'], function ($routes) {
+    $routes->get("all", "UserTalent::index");
+    $routes->get("detail/(:any)", "UserTalent::show");
+    $routes->post("create", "Project::create");
+    $routes->put("update/(:any)", "UserTalent::update");
+    $routes->delete("delete/(:any)", "UserTalent::delete");
+});
+$routes->group("api/contact", ['filter' => 'auth'], function ($routes) {
+    $routes->get("all", "Contact::index");
+    $routes->get("detail/(:any)", "Contact::show");
+    $routes->get("show_client/(:any)", "Contact::show_client");
+    $routes->post("create", "Project::Contact");
+    $routes->put("update/(:any)", "Contact::update");
+    $routes->delete("delete/(:any)", "Contact::delete");
+});
+$routes->group("api/homepage", ['filter' => 'auth'], function ($routes) {
+    $routes->get("detail/(:any)", "Homepage::show");
+    $routes->put("update/(:any)", "Homepage::update");
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

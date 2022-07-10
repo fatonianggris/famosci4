@@ -88,9 +88,7 @@ class UserTalent extends ResourceController
         $exp = $iat + 3600;
 
         $payload = array(
-            "iss" => "Issuer of the JWT",
-            "aud" => "Audience that the JWT",
-            "sub" => "Subject of the JWT",
+            "nbf" => 1357000000,
             "iat" => $iat, //Time the JWT issued at
             "exp" => $exp, // Expiration time of token
             "email" => $user['email'],

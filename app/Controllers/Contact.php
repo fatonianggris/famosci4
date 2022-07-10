@@ -67,6 +67,27 @@ class Contact extends ResourceController
         }
     }
 
+    public function show_client($id = null)
+    {
+        $data = $this->ContactModel->getWhere(['id_user_client' => $id])->getResult();
+        if ($data) {
+            $response = [
+                'status'   => 200,
+                'error'    => null,
+                'messages' => 'Data Found',
+                'data' => $data
+            ];
+            return $this->respondCreated($data);
+        } else {
+            $response = [
+                'status'   => 400,
+                'error' => 'Data Not Found',
+                'message' => 'Invalid Inputs ID'
+            ];
+            return $this->fail($response, 400);
+        }
+    }
+
     /**
      * Return a new resource object, with default properties
      *
@@ -85,36 +106,10 @@ class Contact extends ResourceController
     public function create()
     {
         $rules = [
-            'name_contact' => [
-                'label' => 'Nama Kontak',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'All input must have {field} provided.',
-                ]
-            ],
-            'position' => [
-                'label' => 'Jabatan',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'All input must have {field} provided.',
-                ]
-            ],
-            'number_phone' => [
-                'label' => 'Nomor Handphone',
-                'rules' => 'required|min_length[10]',
-                'errors' => [
-                    'required' => 'All input must have {field} provided.',
-                    'min_length' => 'Your {field} is too short.',
-                ]
-            ],
-            'email' => [
-                'label' => 'Email',
-                'rules' => 'required|valid_email',
-                'errors' => [
-                    'required' => 'All inputs must have {field} provided.',
-                    'valid_email' => 'All input must valid email.',
-                ]
-            ],
+            'name_contact' => ['label' => 'Nama Kontak', 'rules' => 'required'],
+            'position' => ['label' => 'Jabatan', 'rules' => 'required'],
+            'number_phone' => ['label' => 'Nomor Handphone', 'rules' => 'required|min_length[8]'],
+            'email' => ['label' => 'Email', 'rules' => 'required|valid_email'],
         ];
 
         if (!$this->validate($rules)) {
